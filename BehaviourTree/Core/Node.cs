@@ -8,16 +8,17 @@ namespace PowerUtilities
 {
     public abstract class Node : ScriptableObject
     {
-        public string guid;
-        public Vector2 position;
+        [HideInInspector]public string guid;
+        [HideInInspector] public Vector2 position;
 
         public enum State
         {
             Running,Success,Failed
         }
-        public State state = State.Running;
+        [HideInInspector] public State state = State.Running;
 
-        bool isStarted=false;
+        public bool isStarted=false;
+        [TextArea]public string description = "Node Description";
         public State Update()
         {
             if(!isStarted)
@@ -26,7 +27,7 @@ namespace PowerUtilities
                 isStarted = true;
             }
             state = OnUpdate();
-            if(state == State.Success || state == State.Failed)
+            if(state != State.Running)
             {
                 OnStop();
                 isStarted= false;

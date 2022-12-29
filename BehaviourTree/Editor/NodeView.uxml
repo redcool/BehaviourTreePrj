@@ -1,0 +1,24 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
+    <Style src="project://database/Assets/PowerXXX/BehaviourTreePrj/BehaviourTree/Editor/NodeView.uss?fileID=7433441132597879392&amp;guid=0f374eb3ce94f954bbf6d1a7fa36de32&amp;type=3#NodeView" />
+    <ui:VisualElement name="node-state" picking-mode="Ignore" style="position: absolute; left: 0; top: 0; right: 0; bottom: 0; border-left-width: 1px; border-right-width: 1px; border-top-width: 1px; border-bottom-width: 1px; border-top-left-radius: 1px; border-bottom-left-radius: 1px; border-top-right-radius: 1px; border-bottom-right-radius: 1px;" />
+    <ui:VisualElement name="node-border">
+        <ui:VisualElement name="contents">
+            <ui:VisualElement name="top">
+                <ui:VisualElement name="input" style="display: flex;" />
+                <ui:VisualElement name="divider" class="vertical" style="display: flex;" />
+                <ui:VisualElement name="title" style="align-items: flex-start; justify-content: flex-start;">
+                    <ui:Label name="title-label" text="DebugLogNode" class="unity-text-element unity-label" style="align-items: auto; justify-content: center;" />
+                    <ui:VisualElement name="title-button-container">
+                        <ui:VisualElement name="collapse-button">
+                            <ui:VisualElement name="icon" />
+                        </ui:VisualElement>
+                    </ui:VisualElement>
+                </ui:VisualElement>
+                <ui:Label text="this is a description" display-tooltip-when-elided="true" name="description" style="font-size: 10px; -unity-font-style: normal; display: flex; max-width: 150px; min-width: 50px; white-space: normal;" />
+                <ui:VisualElement name="divider" class="vertical" />
+                <ui:VisualElement name="output" />
+            </ui:VisualElement>
+        </ui:VisualElement>
+    </ui:VisualElement>
+    <ui:VisualElement name="selection-border" picking-mode="Ignore" />
+</ui:UXML>

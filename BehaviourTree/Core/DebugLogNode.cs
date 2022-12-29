@@ -5,6 +5,7 @@ namespace PowerUtilities
     public class DebugLogNode : ActionNode
     {
         public string message;
+
         protected override void OnStart()
         {
             Debug.Log($"onstart {message}");

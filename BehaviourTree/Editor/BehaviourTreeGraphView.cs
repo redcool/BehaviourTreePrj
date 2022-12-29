@@ -25,6 +25,15 @@ namespace PowerUtilities
 
             var styleSheet = AssetDatabase.LoadAssetAtPath<StyleSheet>(BehaviourTreeEditor.RootPathFolder.Value+"/BehaviourTreeEditor.uss");
             styleSheets.Add(styleSheet);
+
+            Undo.undoRedoPerformed += OnUndo;
+        }
+
+
+        private void OnUndo()
+        {
+            ShowTree(Tree);
+            AssetDatabase.SaveAssets();
         }
 
         NodeView FindNodeView(Node node)
@@ -80,6 +89,7 @@ namespace PowerUtilities
                     }
                 });
             }
+
             if(graphViewChange.edgesToCreate != null)
             {
                 graphViewChange.edgesToCreate.ForEach(edge =>
@@ -90,6 +100,19 @@ namespace PowerUtilities
                     Tree.AddChild(parent.node, child.node);
                 });
             }
+
+            if(graphViewChange.movedElements != null)
+            {
+                nodes.ForEach(n =>
+                {
+                    var nv = n as NodeView;
+                    if(nv != null)
+                    {
+                        nv.SortChildren();
+                    }
+                });
+            }
+
             return graphViewChange;
         }
 
@@ -106,6 +129,17 @@ namespace PowerUtilities
 
         public override void BuildContextualMenu(ContextualMenuPopulateEvent evt)
         {
+            evt.menu.AppendAction("Set Default Action", (action) =>
+            {
+                if (selection.Count > 0)
+                {
+                    var nv = selection.First() as NodeView;
+                    if (nv != null)
+                        Tree.rootNode = nv.node;
+                }
+            });
+            evt.menu.AppendSeparator();
+
             AppendToContextMenu(evt, TypeCache.GetTypesDerivedFrom(typeof(ActionNode)));
             AppendToContextMenu(evt, TypeCache.GetTypesDerivedFrom(typeof(DecoratorNode)));
             AppendToContextMenu(evt, TypeCache.GetTypesDerivedFrom(typeof(CompositeNode)));
@@ -125,6 +159,16 @@ namespace PowerUtilities
             endPort.direction != startPort.direction).ToList();
         }
 
+        public void UpdateNodeViewStates()
+        {
+            nodes.ForEach( n => { 
+                var nv = n as NodeView;
+                if(nv != null)
+                {
+                    nv.UpdateState();
+                }
+            });
+        }
     }
 }
 #endif

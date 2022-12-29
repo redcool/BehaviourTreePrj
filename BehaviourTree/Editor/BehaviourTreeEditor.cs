@@ -4,6 +4,7 @@ using System;
 using System.IO;
 using System.Linq;
 using UnityEditor;
+using UnityEditor.Callbacks;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -26,6 +27,18 @@ public class BehaviourTreeEditor : EditorWindow
         BehaviourTreeEditor wnd = GetWindow<BehaviourTreeEditor>();
         wnd.titleContent = new GUIContent("BehaviourTreeEditor");
     }
+
+    [OnOpenAsset]
+    static bool OnOpenAsset(int instanceId,int liine)
+    {
+        if(Selection.activeObject is BehaviourTree)
+        {
+            Open();
+            return true;
+        }
+        return false;
+    }
+
 
     public void CreateGUI()
     {
@@ -51,12 +64,22 @@ public class BehaviourTreeEditor : EditorWindow
     private void OnSelectionChange()
     {
         var tree = Selection.activeObject as BehaviourTree;
+        if (!tree && Selection.activeGameObject)
+        {
+            var run = Selection.activeGameObject.GetComponent<BehaviourTreeRun>();
+            if (run)
+                tree = run.tree;
+        }
+
         if(tree != null)
         {
             treeGraphView.ShowTree(tree);
         }
     }
-
+    private void OnInspectorUpdate()
+    {
+        treeGraphView?.UpdateNodeViewStates();
+    }
     public static void UpdateInspectorView(NodeView nv)
     {
         if(InspectorView != null) {

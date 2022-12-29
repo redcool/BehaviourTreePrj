@@ -22,7 +22,8 @@ namespace PowerUtilities
 
             nodeEditor = Editor.CreateEditor(nodeView.node);
             var imguiContainer = new IMGUIContainer(() => {
-                nodeEditor.DrawDefaultInspector();
+                if(nodeEditor.target)
+                    nodeEditor.DrawDefaultInspector();
             });
             Add(imguiContainer);
         }
