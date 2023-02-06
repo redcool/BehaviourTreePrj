@@ -21,7 +21,7 @@ public class BehaviourTreeEditor : EditorWindow
         return Path.GetDirectoryName(AssetDatabase.GUIDToAssetPath(fileGUID));
     });
 
-    [MenuItem("BehaviourTreeEditor/Editor")]
+    [MenuItem("PowerUtilities/BehaviourTreeEditor/Editor")]
     public static void Open()
     {
         BehaviourTreeEditor wnd = GetWindow<BehaviourTreeEditor>();

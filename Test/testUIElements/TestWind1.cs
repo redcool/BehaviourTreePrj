@@ -8,7 +8,7 @@ using System.IO;
 
 public class TestWind1 : EditorWindow
 {
-    [MenuItem("UI Toolkit/TestWind1")]
+    [MenuItem("PowerUtilities/UI Toolkit/TestWind1")]
     public static void ShowExample()
     {
         TestWind1 wnd = GetWindow<TestWind1>();
