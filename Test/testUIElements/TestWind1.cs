@@ -1,3 +1,4 @@
+#if UNITY_EDITOR
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.UIElements;
@@ -33,3 +34,4 @@ public class TestWind1 : EditorWindow
         
     }
 }
+#endif

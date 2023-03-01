@@ -1,3 +1,4 @@
+#if UNITY_EDITOR
 using System.Collections;
 using System.Collections.Generic;
 using System.Drawing;
@@ -39,3 +40,4 @@ public class TestGraphView : GraphView
         //return base.GetCompatiblePorts(startPort, nodeAdapter);
     }
 }
+#endif

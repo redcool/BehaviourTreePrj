@@ -84,20 +84,7 @@
                 EditorUtility.SetDirty(c);
             }
         }
-        public List<Node> GetChildren(Node parent)
-        {
-            var list = new List<Node>();
 
-            var d = parent as DecoratorNode;
-            if (d != null && d.child != null)
-                list.Add(d.child);
-
-            var c = parent as CompositeNode;
-            if (c != null)
-                return c.children;
-
-            return list;
-        }
     }
 #endif
 
@@ -128,7 +115,20 @@
                 children.ForEach(c => Traverse(c, action));
             }
         }
+        public List<Node> GetChildren(Node parent)
+        {
+            var list = new List<Node>();
 
+            var d = parent as DecoratorNode;
+            if (d != null && d.child != null)
+                list.Add(d.child);
+
+            var c = parent as CompositeNode;
+            if (c != null)
+                return c.children;
+
+            return list;
+        }
         public BehaviourTree Clone()
         {
             var tree = Instantiate(this);
