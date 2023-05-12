@@ -9,7 +9,6 @@
 
 #if UNITY_EDITOR
     using UnityEditor;
-    using Codice.Client.BaseCommands.CheckIn;
 
     public partial class BehaviourTree
     {

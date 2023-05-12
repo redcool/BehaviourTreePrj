@@ -1,6 +1,4 @@
 ﻿#if UNITY_EDITOR
-using Codice.Client.BaseCommands.CheckIn;
-using Codice.CM.SEIDInfo;
 using System;
 using System.Collections.Generic;
 using System.Linq;
