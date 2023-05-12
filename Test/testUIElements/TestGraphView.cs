@@ -9,6 +9,7 @@ using UnityEngine.UIElements;
 using System.Reflection;
 using Assets.testUIElements;
 using System.Linq;
+using System.IO;
 
 public class TestGraphView : GraphView
 {
@@ -23,7 +24,10 @@ public class TestGraphView : GraphView
 		this.AddManipulator(new SelectionDragger());
         this.AddManipulator(new RectangleSelector());
 
-		var styleSheet = AssetDatabase.LoadAssetAtPath<StyleSheet>("Assets/testUIElements/TestWind1.uss");
+		var fileGUID = AssetDatabase.FindAssets("TestWind1").FirstOrDefault();
+        var folder = Path.GetDirectoryName(AssetDatabase.GUIDToAssetPath(fileGUID)); // Assets/testUIElements
+
+        var styleSheet = AssetDatabase.LoadAssetAtPath<StyleSheet>(folder + "/TestWind1.uss");
         styleSheets.Add(styleSheet);
 	}
 
