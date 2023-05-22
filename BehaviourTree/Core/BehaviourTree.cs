@@ -12,6 +12,7 @@
 
     public partial class BehaviourTree
     {
+
         public Node CreateNode(Type t)
         {
             var node = ScriptableObject.CreateInstance(t) as Node;
@@ -88,9 +89,12 @@
 #endif
 
 
-    [CreateAssetMenu()]
+    [CreateAssetMenu(menuName= ROOT_MENU_PATH+"/CreateTree")]
     public partial class BehaviourTree : ScriptableObject
     {
+
+        public const string ROOT_MENU_PATH = "PowerUtilities/BehaviourTree";
+
         public Node rootNode;
         public Node.State treeState;
 
