@@ -27,6 +27,8 @@ namespace PowerUtilities.BT
         {
             BehaviourTreeEditor wnd = GetWindow<BehaviourTreeEditor>();
             wnd.titleContent = new GUIContent("BehaviourTreeEditor");
+            if (wnd.position.width < 1000)
+                wnd.position = new Rect(100, 100, 1000, 800);
         }
 
         [OnOpenAsset]

@@ -1,18 +1,18 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" MemoryProfiler="Unity.MemoryProfiler.Editor" noNamespaceSchemaLocation="../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="True">
-    <Style src="project://database/BehaviourTreeEditor.uss?fileID=7433441132597879392&amp;guid=f041d35b4dae4e344830b0367be43968&amp;type=3#BehaviourTreeEditor" />
+    <Style src="project://database/Assets/PowerXXX/BehaviourTreePrj/BehaviourTree/Editor/BehaviourTreeEditor.uss?fileID=7433441132597879392&amp;guid=f041d35b4dae4e344830b0367be43968&amp;type=3#BehaviourTreeEditor" />
     <uie:Toolbar>
         <uie:ToolbarMenu display-tooltip-when-elided="true" text="Asset" />
     </uie:Toolbar>
-    <PowerUtilities.SplitView orientation="Horizontal">
+    <PowerUtilities.BT.BTSplitView>
         <ui:VisualElement name="leftView" style="flex-shrink: 1; flex-grow: 1;">
             <ui:Label text="Inspector" display-tooltip-when-elided="true" style="background-color: rgb(37, 37, 37);" />
-            <PowerUtilities.InspectorView style="flex-grow: 1;" />
+            <PowerUtilities.BT.BTInspectorView style="flex-grow: 1;" />
         </ui:VisualElement>
         <ui:VisualElement name="rightView" style="flex-shrink: 1; flex-basis: auto;">
-            <ui:Label text="Tree View" display-tooltip-when-elided="true" style="background-color: rgb(37, 37, 37);" />
-            <ui:VisualElement style="flex-grow: 1;">
-                <PowerUtilities.BehaviourTreeGraphView focusable="true" style="flex-grow: 1;" />
+            <ui:Label text="Graph" display-tooltip-when-elided="true" style="background-color: rgb(37, 37, 37);" />
+            <ui:VisualElement style="flex-grow: 1; height: 100%;">
+                <PowerUtilities.BT.BTGraphView focusable="true" style="flex-grow: 1;" />
             </ui:VisualElement>
         </ui:VisualElement>
-    </PowerUtilities.SplitView>
+    </PowerUtilities.BT.BTSplitView>
 </ui:UXML>
