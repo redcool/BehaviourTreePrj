@@ -8,13 +8,13 @@ using UnityEngine.UIElements;
 using UnityEditor.Experimental.GraphView;
 using UnityEditor;
 
-namespace PowerUtilities
+namespace PowerUtilities.BT
 {
-    public class BehaviourTreeGraphView : GraphView
+    public class BTGraphView : GraphView
     {
         public BehaviourTree Tree;
-        public class UxmlFactor : UxmlFactory<BehaviourTreeGraphView, UxmlTraits> { }
-        public BehaviourTreeGraphView()
+        public class UxmlFactor : UxmlFactory<BTGraphView, UxmlTraits> { }
+        public BTGraphView()
         {
             Insert(0, new GridBackground());
 
@@ -36,9 +36,9 @@ namespace PowerUtilities
             AssetDatabase.SaveAssets();
         }
 
-        NodeView FindNodeView(Node node)
+        BTNodeView FindNodeView(Node node)
         {
-            return GetNodeByGuid(node.guid) as NodeView;
+            return GetNodeByGuid(node.guid) as BTNodeView;
         }
 
         public void ShowTree(BehaviourTree tree)
@@ -73,7 +73,7 @@ namespace PowerUtilities
             if (graphViewChange.elementsToRemove != null)
             {
                 graphViewChange.elementsToRemove.ForEach(item => {
-                    var nodeView = item as NodeView;
+                    var nodeView = item as BTNodeView;
                     if(nodeView != null)
                     {
                         Tree.DeleteNode(nodeView.node);
@@ -82,8 +82,8 @@ namespace PowerUtilities
                     var edge = item as Edge;
                     if(edge != null)
                     {
-                        var parent = edge.output.node as NodeView;
-                        var child = edge.input.node as NodeView;
+                        var parent = edge.output.node as BTNodeView;
+                        var child = edge.input.node as BTNodeView;
 
                         Tree.RemoveChild(parent.node, child.node);
                     }
@@ -94,8 +94,8 @@ namespace PowerUtilities
             {
                 graphViewChange.edgesToCreate.ForEach(edge =>
                 {
-                    var parent = edge.output.node as NodeView;
-                    var child = edge.input.node as NodeView;
+                    var parent = edge.output.node as BTNodeView;
+                    var child = edge.input.node as BTNodeView;
 
                     Tree.AddChild(parent.node, child.node);
                 });
@@ -105,7 +105,7 @@ namespace PowerUtilities
             {
                 nodes.ForEach(n =>
                 {
-                    var nv = n as NodeView;
+                    var nv = n as BTNodeView;
                     if(nv != null)
                     {
                         nv.SortChildren();
@@ -124,7 +124,7 @@ namespace PowerUtilities
 
         public void CreateNodeView(Node node)
         {
-            AddElement(new NodeView(node));
+            AddElement(new BTNodeView(node));
         }
 
         public override void BuildContextualMenu(ContextualMenuPopulateEvent evt)
@@ -133,7 +133,7 @@ namespace PowerUtilities
             {
                 if (selection.Count > 0)
                 {
-                    var nv = selection.First() as NodeView;
+                    var nv = selection.First() as BTNodeView;
                     if (nv != null)
                         Tree.rootNode = nv.node;
                 }
@@ -162,7 +162,7 @@ namespace PowerUtilities
         public void UpdateNodeViewStates()
         {
             nodes.ForEach( n => { 
-                var nv = n as NodeView;
+                var nv = n as BTNodeView;
                 if(nv != null)
                 {
                     nv.UpdateState();

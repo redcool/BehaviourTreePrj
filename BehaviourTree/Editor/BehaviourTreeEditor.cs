@@ -1,5 +1,4 @@
 #if UNITY_EDITOR
-using PowerUtilities;
 using System;
 using System.IO;
 using System.Linq;
@@ -8,82 +7,86 @@ using UnityEditor.Callbacks;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-
-public class BehaviourTreeEditor : EditorWindow
+namespace PowerUtilities.BT
 {
-    InspectorView inspectorView;
-    BehaviourTreeGraphView treeGraphView;
-
-    static InspectorView InspectorView { get; set; }
-
-    public static Lazy<string> RootPathFolder = new Lazy<string>(() => {
-        var fileGUID = AssetDatabase.FindAssets("BehaviourTreeEditor").FirstOrDefault();
-        return Path.GetDirectoryName(AssetDatabase.GUIDToAssetPath(fileGUID));
-    });
-
-    [MenuItem("PowerUtilities/BehaviourTreeEditor/Editor")]
-    public static void Open()
+    public class BehaviourTreeEditor : EditorWindow
     {
-        BehaviourTreeEditor wnd = GetWindow<BehaviourTreeEditor>();
-        wnd.titleContent = new GUIContent("BehaviourTreeEditor");
-    }
+        BTInspectorView inspectorView;
+        BTGraphView treeGraphView;
 
-    [OnOpenAsset]
-    static bool OnOpenAsset(int instanceId,int liine)
-    {
-        if(Selection.activeObject is BehaviourTree)
+        static BTInspectorView InspectorView { get; set; }
+
+        public static Lazy<string> RootPathFolder = new Lazy<string>(() =>
         {
-            Open();
-            return true;
-        }
-        return false;
-    }
+            var fileGUID = AssetDatabase.FindAssets("BehaviourTreeEditor").FirstOrDefault();
+            return Path.GetDirectoryName(AssetDatabase.GUIDToAssetPath(fileGUID));
+        });
 
-
-    public void CreateGUI()
-    {
-        // Each editor window contains a root VisualElement object
-        VisualElement root = rootVisualElement;
-        
-        // Import UXML
-        var visualTree = AssetDatabase.LoadAssetAtPath<VisualTreeAsset>(RootPathFolder.Value + "/BehaviourTreeEditor.uxml");
-        visualTree.CloneTree(root);
-
-        // The style will be applied to the VisualElement and all of its children.
-        var styleSheet = AssetDatabase.LoadAssetAtPath<StyleSheet>(RootPathFolder.Value + "/BehaviourTreeEditor.uss");
-        root.styleSheets.Add(styleSheet);
-
-        inspectorView = root.Q<InspectorView>();
-        treeGraphView = root.Q<BehaviourTreeGraphView>();
-
-        InspectorView = inspectorView; 
-
-        OnSelectionChange();
-    }
-
-    private void OnSelectionChange()
-    {
-        var tree = Selection.activeObject as BehaviourTree;
-        if (!tree && Selection.activeGameObject)
+        [MenuItem("PowerUtilities/BehaviourTreeEditor/Editor")]
+        public static void Open()
         {
-            var run = Selection.activeGameObject.GetComponent<BehaviourTreeRun>();
-            if (run)
-                tree = run.tree;
+            BehaviourTreeEditor wnd = GetWindow<BehaviourTreeEditor>();
+            wnd.titleContent = new GUIContent("BehaviourTreeEditor");
         }
 
-        if(tree != null)
+        [OnOpenAsset]
+        static bool OnOpenAsset(int instanceId, int liine)
         {
-            treeGraphView.ShowTree(tree);
+            if (Selection.activeObject is BehaviourTree)
+            {
+                Open();
+                return true;
+            }
+            return false;
         }
-    }
-    private void OnInspectorUpdate()
-    {
-        treeGraphView?.UpdateNodeViewStates();
-    }
-    public static void UpdateInspectorView(NodeView nv)
-    {
-        if(InspectorView != null) {
-            InspectorView.UpdateView(nv);
+
+
+        public void CreateGUI()
+        {
+            // Each editor window contains a root VisualElement object
+            VisualElement root = rootVisualElement;
+
+            // Import UXML
+            var visualTree = AssetDatabase.LoadAssetAtPath<VisualTreeAsset>(RootPathFolder.Value + "/BehaviourTreeEditor.uxml");
+            visualTree.CloneTree(root);
+
+            // The style will be applied to the VisualElement and all of its children.
+            var styleSheet = AssetDatabase.LoadAssetAtPath<StyleSheet>(RootPathFolder.Value + "/BehaviourTreeEditor.uss");
+            root.styleSheets.Add(styleSheet);
+
+            inspectorView = root.Q<BTInspectorView>();
+            treeGraphView = root.Q<BTGraphView>();
+
+            InspectorView = inspectorView;
+
+            OnSelectionChange();
+        }
+
+        private void OnSelectionChange()
+        {
+            var tree = Selection.activeObject as BehaviourTree;
+            if (!tree && Selection.activeGameObject)
+            {
+                var run = Selection.activeGameObject.GetComponent<BehaviourTreeRun>();
+                if (run)
+                    tree = run.tree;
+            }
+
+            if (tree != null)
+            {
+                treeGraphView.ShowTree(tree);
+            }
+        }
+        private void OnInspectorUpdate()
+        {
+            treeGraphView?.UpdateNodeViewStates();
+        }
+        public static void UpdateInspectorView(BTNodeView nv)
+        {
+            if (InspectorView != null)
+            {
+                InspectorView.UpdateView(nv);
+            }
         }
     }
 }

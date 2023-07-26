@@ -7,16 +7,16 @@ using System.Threading.Tasks;
 using UnityEditor;
 using UnityEngine.UIElements;
 
-namespace PowerUtilities
+namespace PowerUtilities.BT
 {
-    public class InspectorView : VisualElement
+    public class BTInspectorView : VisualElement
     {
-        public static Action<NodeView> OnNodeSelected;
+        public static Action<BTNodeView> OnNodeSelected;
 
         Editor nodeEditor;
-        public new class UxmlFactory : UxmlFactory<InspectorView> { }
+        public new class UxmlFactory : UxmlFactory<BTInspectorView> { }
 
-        public void UpdateView(NodeView nodeView)
+        public void UpdateView(BTNodeView nodeView)
         {
             Clear();
             UnityEngine.Object.DestroyImmediate(nodeEditor);

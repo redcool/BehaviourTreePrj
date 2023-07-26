@@ -10,9 +10,9 @@ using UnityEditor.UIElements;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-namespace PowerUtilities
+namespace PowerUtilities.BT
 {
-    public class NodeView : UnityEditor.Experimental.GraphView.Node
+    public class BTNodeView : UnityEditor.Experimental.GraphView.Node
     {
         public Node node;
         
@@ -21,7 +21,7 @@ namespace PowerUtilities
 
         public Orientation orientation = Orientation.Vertical;
 
-        public NodeView(Node node) : base(BehaviourTreeEditor.RootPathFolder.Value+"/NodeView.uxml")
+        public BTNodeView(Node node) : base(BehaviourTreeEditor.RootPathFolder.Value+"/NodeView.uxml")
         {
             this.node = node;
             title= node.name;

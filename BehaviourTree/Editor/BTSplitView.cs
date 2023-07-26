@@ -5,10 +5,10 @@ using System.Text;
 using System.Threading.Tasks;
 using UnityEngine.UIElements;
 
-namespace PowerUtilities
+namespace PowerUtilities.BT
 {
-    public class SplitView : TwoPaneSplitView
+    public class BTSplitView : TwoPaneSplitView
     {
-        public new class UxmlFactory : UxmlFactory<SplitView, UxmlTraits> { }
+        public new class UxmlFactory : UxmlFactory<BTSplitView, UxmlTraits> { }
     }
 }
