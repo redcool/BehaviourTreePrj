@@ -46,7 +46,7 @@ namespace PowerUtilities.BT
             Tree = tree;
 
             graphViewChanged -= OnViewChanged;
-            DeleteElements(graphElements);
+            DeleteElements(graphElements.ToList()); // 2020 need toList
             graphViewChanged += OnViewChanged;
 
             foreach (var item in tree.nodes)
